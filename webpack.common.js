@@ -1,16 +1,31 @@
+/* eslint-disable no-undef */
 /* eslint-disable import/no-extraneous-dependencies */
 // Base variables
-// const path = require('path');
+const path = require('path');
 
 // Importing plugins that do not come by default in webpack
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const pages = require('./src/pages');
+
+// Populating htmlPlugins array with HtmlWebpackPlugin instances for each page from ./src/pages.js
+const htmlPlugins = [];
+pages.forEach(page => {
+  htmlPlugins.push(
+    new HtmlWebpackPlugin({
+      template: page.template,
+      filename: page.output,
+      title: page.content.title,
+      description: page.content.description,
+    })
+  );
+});
 
 module.exports = {
   entry: {
-    // JS and scss entry points for main/index page
-    index: [
+    // JS and scss entry points
+    main: [
       './src/js/main.js', // Javascript entry point
       './src/scss/main.scss', // scss entry point
     ],
@@ -47,8 +62,16 @@ module.exports = {
         ],
       },
       {
-        test: /\.html$/,
+        test: /\.hbs$/,
         use: [
+          {
+            loader: 'handlebars-loader',
+            query: {
+              helperDirs: [path.join(__dirname, 'src', 'helpers')],
+              partialDirs: [path.join(__dirname, 'src', 'partials')],
+            },
+          },
+          'extract-loader',
           {
             loader: 'html-loader',
             options: {
@@ -59,6 +82,7 @@ module.exports = {
       },
       {
         test: /\.(png|gif|jpe?g|ico|svg)$/,
+        exclude: /node_modules/, // excluding images in node_modules
         use: [
           {
             loader: 'file-loader',
@@ -93,11 +117,7 @@ module.exports = {
       filename: 'css/[name]-[contenthash:4].css',
       chunkFilename: 'css/[id]-[contenthash:4].css',
     }),
-    new HtmlWebpackPlugin({
-      title: 'My awesome index page',
-      filename: 'index.html',
-      template: 'src/index.html',
-    }),
+    ...htmlPlugins,
     new CleanWebpackPlugin(['dist']),
   ],
 };
