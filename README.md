@@ -1,4 +1,4 @@
-# Webpack 4 Boilerplate for simple frontend projects
+# Webpack4 Front-end Boilerplate for multi-page application
 <a target="_blank" href="https://opensource.org/licenses/MIT" title="License: MIT">
   <img src="https://img.shields.io/badge/License-MIT-blue.svg">
 </a>
@@ -9,7 +9,7 @@
 
 ## Purpose
 
-Building simple static web-pages.
+Building simple static multi-page websites.
 
 
 ... more readme is coming soon.

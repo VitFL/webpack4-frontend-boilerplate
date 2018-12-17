@@ -1,8 +1,8 @@
 {
-  "name": "webpack4-frontend-boilerplate",
+  "name": "webpack4-frontend-mpa-boilerplate",
   "version": "1.0.0",
-  "description": "Webpack4 Boilerplate for simple frontend projects",
-  "main": "src/js/app.js",
+  "description": "Webpack4 Front-end Boilerplate for multi-page application",
+  "main": "src/js/app.js",  
   "scripts": {
     "build": "webpack --mode production --config webpack.config.prod.js",
     "precommit": "lint-staged",
@@ -11,7 +11,7 @@
     "dev": "webpack-dev-server --watch --mode development --config webpack.config.dev.js",
     "lint": "eslint src",
     "lint:fix": "npm run lint -- --fix"
-  },
+  },  
   "keywords": [
     "frontend",
     "es6",
@@ -20,6 +20,7 @@
     "webpack4",
     "handlebars",
     "mpa",
+    "multi-page",
     "starter-kit",
     "boilerplate"
   ],
